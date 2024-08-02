@@ -1,0 +1,57 @@
+erDiagram
+    User ||--o{ Order : places
+    User ||--o{ Cart : has
+    Product ||--o{ OrderItem : contains
+    Product ||--o{ CartItem : contains
+    Product }|--|| Category : belongs_to
+    Order ||--|{ OrderItem : includes
+    Cart ||--|{ CartItem : contains
+
+    User {
+        int id PK
+        string username
+        string email
+        string password
+        string address
+        string phone
+        string profile_image
+        datetime created_at
+        datetime updated_at
+    }
+    Product {
+        int id PK
+        string name
+        text description
+        float price
+        int stock
+        int category_id FK
+        json custom_fields
+    }
+    Category {
+        int id PK
+        string name
+    }
+    Order {
+        int id PK
+        int user_id FK
+        datetime order_date
+        enum status
+        float total_amount
+    }
+    OrderItem {
+        int id PK
+        int order_id FK
+        int product_id FK
+        int quantity
+        float price
+    }
+    Cart {
+        int id PK
+        int user_id FK
+    }
+    CartItem {
+        int id PK
+        int cart_id FK
+        int product_id FK
+        int quantity
+    }
